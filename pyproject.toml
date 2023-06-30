@@ -18,8 +18,8 @@ classifiers = [
 	"Natural Language :: English",
 	"Operating System :: OS Independent",
 	"Programming Language :: Python :: 3",
-	"Topic :: File Formats"
-	"Topic :: Software Development :: Libraries :: Python Modules",
+	"Topic :: File Formats",
+	"Topic :: Software Development :: Libraries :: Python Modules"
 ]
 keywords = "valve map format vmf hammer editor"
 
