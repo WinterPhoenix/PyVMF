@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "PyVMF"
+version = "0.3.0"
+authors = [
+	{ name="GorangeNinja", email="gorange.ninja@gmail.com" },
+]
+description = "A python VMF parser."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+	"Development Status :: 3 - Alpha",
+	"Intended Audience :: Developers",
+	"License :: OSI Approved :: MIT License",
+	"Natural Language :: English",
+	"Operating System :: OS Independent",
+	"Programming Language :: Python :: 3",
+	"Topic :: File Formats"
+	"Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = "valve map format vmf hammer editor"
+
+[project.urls]
+"Homepage" = "https://github.com/surf-gorange/PyVMF"
+"Bug Tracker" = "https://github.com/surf-gorange/PyVMF/issues"
