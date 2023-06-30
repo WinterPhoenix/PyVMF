@@ -21,7 +21,7 @@ classifiers = [
 	"Topic :: File Formats",
 	"Topic :: Software Development :: Libraries :: Python Modules"
 ]
-keywords = "valve map format vmf hammer editor"
+keywords = ["valve", "map", "format", "vmf", "hammer", "editor"]
 
 [project.urls]
 "Homepage" = "https://github.com/surf-gorange/PyVMF"
