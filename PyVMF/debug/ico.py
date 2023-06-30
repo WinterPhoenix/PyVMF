@@ -1,5 +1,5 @@
 from PyVMF import *
-from obj import *
+from .obj import *
 
 v = new_vmf()
 
