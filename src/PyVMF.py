@@ -675,6 +675,22 @@ class Solid(Common):
 
         return v
 
+    @property
+    def center_bbox(solid) -> Vertex:
+        """
+        :return: The center of the bounding rectangle around the solid
+        :rtype: :class:`Vertex`
+        """
+        x = []
+        y = []
+        z = []
+        for vert in solid.get_all_vertices():
+            x.append(vert.x)
+            y.append(vert.y)
+            z.append(vert.z)
+
+        return Vertex((min(x) + max(x)) / 2, (min(y) + max(y)) / 2, (min(z) + max(z)) / 2)
+
     def get_axis_extremity(self, x: bool = None, y: bool = None, z: bool = None) -> Vertex:
         """
         Finds the vertex that is the furthest on the given axis, **only 1 axis per method call**,
@@ -2453,6 +2469,27 @@ class VMF:
                 v = v + solid.center
         v.divide(len(group))
         return v
+
+    def get_group_center_bbox(self, group: list) -> Vertex:
+        """
+        Gets a vertex based on the bbox center of all the solids
+
+        :param group: All the solids to include
+        :type group: :obj:`list` of :class:`Solid`
+        :return: The bbox center position of all the solids
+        :rtype: :class:`Vertex`
+        """
+
+        x = []
+        y = []
+        z = []
+        for solid in group:
+            for vert in solid.get_all_vertices():
+                x.append(vert.x)
+                y.append(vert.y)
+                z.append(vert.z)
+
+        return Vertex((min(x) + max(x)) / 2, (min(y) + max(y)) / 2, (min(z) + max(z)) / 2)
 
     def sort_by_attribute(self, category_list: list, attr: str):
         """
