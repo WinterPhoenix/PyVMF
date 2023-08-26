@@ -40,7 +40,9 @@ class Convert:
     @staticmethod
     def string_to_color_light(string: str) -> ColorLight:
         temp = string.split()
-        temp[3] = temp[3] if 3 in temp else "200" # TODO: Is this the right default value for brightness?
+        if 3 not in temp:
+            # TODO: Is this the right default value for brightness?
+            temp.append("200")
         return ColorLight(int(temp[0]), int(temp[1]), int(temp[2]), int(temp[3]))
 
     @staticmethod
