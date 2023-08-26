@@ -2392,7 +2392,7 @@ class VMF:
         if include_hidden:
             for h in self.hidden:
                 if h.entity is not None:
-                    for s in h.entity.solid:
+                    for s in h.entity.solids:
                         li.append(s)
 
         return li
