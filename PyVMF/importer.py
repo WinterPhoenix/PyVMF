@@ -60,7 +60,17 @@ class TempCategory:
         self.category = self.category.split()[0]  # We remove the tabs
         for i in self.data:
             clean = re.findall(r'\"(.*?)\"', i)  # We remove the double quotes and separate (example line: "id" "2688")
-            self.dic[clean[0]] = num(clean[1])  # The values, IF possible are turned into either ints or floats
+            key = clean[0]
+            val = num(clean[1]) # The values, IF possible are turned into either ints or floats
+
+            if key in self.dic:
+                # Convert it to a list of values; needed for things like Map I/O which can use the same key multiple times
+                vals = self.dic[key]
+                vals = vals if type(vals) is list else [vals]
+                vals.append(val)
+                self.dic[key] = vals
+            else:
+                self.dic[key] = val
 
         for j in self.children:
             j.clean_up()  # Nested function calls

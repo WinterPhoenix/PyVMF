@@ -2689,8 +2689,13 @@ class VMF:
                 continue
 
             if type(item) is dict:
-                for i, j in item.items():
-                    self.file.write(f"{t}\"{i}\" \"{str(j)}\"\n")
+                for k, v in item.items():
+                    if type(v) is list:
+                        # Multiple values for same key
+                        for v2 in v:
+                            self.file.write(f"{t}\"{k}\" \"{str(v2)}\"\n")
+                    else:
+                        self.file.write(f"{t}\"{k}\" \"{str(v)}\"\n")
             else:
                 self.file.write(f"{t}\"{item[0]}\" \"{str(item[1])}\"\n")
 
