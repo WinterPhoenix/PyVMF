@@ -1765,6 +1765,18 @@ class Entity(Common):
 
         self.other = dic
         if "origin" in dic:
+            if type(dic["origin"]) is list:
+                if self.classname == "func_useableladder":
+                    # Workaround for Hammer breaking the VMF with these
+                    dic["origin"] = dic["point0"]
+                else:
+                    lastorigin = dic["origin"][0]
+                    failed = False
+                    for origin in dic["origin"]:
+                        if lastorigin != origin:
+                            raise ValueError("Entity with multiple origin keyvalues ('" + str(lastorigin) + "' != '" + str(origin) + "')! Entity ID: " + str(self.id))
+                    dic["origin"] = lastorigin
+
             self.other["origin"] = Convert.string_to_vertex(dic["origin"])
         self.export_list = ["id", "classname"]
 
