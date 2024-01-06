@@ -2466,6 +2466,57 @@ class VMF:
 
         return li
 
+    def get_all_vertices(self, include_hidden=False, include_solid_entities=True) -> List[Vertex, ...]:
+        """
+        Finds all vertices in the VMF, including overlapping ones from the different solids AND solid sides, for only unique vertices
+        use :func:`~VMF.get_only_unique_vertices`
+
+        :return: All the vertices in the VMF
+        :rtype: :obj:`list` of :class:`Vertex`
+        """
+        vertex_list = []
+        for solid in self.get_solids(include_hidden, include_solid_entities):
+            for side in solid.side:
+                vertex_list.extend(side.plane)
+        return vertex_list
+
+    def get_only_unique_vertices(self, include_hidden=False, include_solid_entities=True) -> List[Vertex, ...]:
+        """
+        Finds all unique vertices across the whole map. Basically, what VBSP will compile WITHOUT `-notjunc`.
+        **You should not use this for vertex manipulation as changing one doesn't change all of them!**
+        See :func:`~VMF.get_all_vertices` and :func:`~VMF.get_only_unique_vertices_per_solids`
+
+        :return: All unique vertices
+        :rtype: :obj:`list` of :class:`Vertex`
+        """
+        vertex_list = []
+        for solid in self.get_solids(include_hidden, include_solid_entities):
+            for side in solid.side:
+                for vertex in side.plane:
+                    if vertex not in vertex_list:
+                        vertex_list.append(vertex)
+
+        return vertex_list
+
+    def get_only_unique_vertices_per_solids(self, include_hidden=False, include_solid_entities=True) -> List[Vertex, ...]:
+        """
+        Finds all unique vertices per solids. Basically, what VBSP will compile WITH `-notjunc`.
+        **Do not use for vertex manipulation! Doesn't represent the state AT ALL!**
+
+        :return: All unique vertices
+        :rtype: :obj:`list` of :class:`Vertex`
+        """
+        vertex_list = []
+        for solid in self.get_solids(include_hidden, include_solid_entities):
+            solid_vertex_list = []
+            for side in solid.side:
+                for vertex in side.plane:
+                    if vertex not in solid_vertex_list:
+                        solid_vertex_list.append(vertex)
+            vertex_list.extend(solid_vertex_list)
+
+        return vertex_list
+
     def get_group_center(self, group: list, geo=False) -> Vertex:
         """
         Gets a vertex based on the average center of all the solids
